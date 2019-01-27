@@ -1,0 +1,18 @@
+#
+# Postfix master process configuration file.  For details on the format
+# of the file, see the master(5) manual page (command: "man 5 master").
+#
+# Do not forget to execute "postfix reload" after editing this file.
+#
+# ==========================================================================
+# service type  private unpriv  chroot  wakeup  maxproc command + args
+#               (yes)   (yes)   (yes)   (never) (100)
+# ==========================================================================
+# Definition of BASH postfix encrypt filter
+bash-postfix-encrypt-filter    unix    -   n   n   -   -   pipe
+  flags=q user=bash-postfix-encrypt-filter null_sender= 
+  argv=/usr/local/bin/bash-postfix-encrypt-filter.sh -f ${sender} -- ${recipient}
+smtp      inet  n       -       n       -       -       smtpd
+  -o content_filter=bash-postfix-encrypt-filter:
+
+

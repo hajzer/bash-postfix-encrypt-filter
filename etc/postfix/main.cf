@@ -1,0 +1,29 @@
+# Global Postfix configuration file. This file lists only a subset
+# of all parameters. For the syntax, and for a complete parameter
+# list, see the postconf(5) manual page (command: "man 5 postconf").
+#
+# For common configuration examples, see BASIC_CONFIGURATION_README
+# and STANDARD_CONFIGURATION_README. To find these documents, use
+# the command "postconf html_directory readme_directory", or go to
+# http://www.postfix.org/.
+#
+# For best results, change no more than 2-3 parameters at a time,
+# and test if Postfix still works after every change.
+
+...
+
+# Set the maximal number of recipients per message delivery for transport "bash-encrypt-content-filter".
+# Setting this parameter to a value of 1 affects email deliveries as follows:
+# - It changes the meaning of the corresponding per-destination concurrency limit, from concurrency
+#   of deliveries to the same domain into concurrency of deliveries to the same recipient. Different
+#   recipients are delivered in parallel, subject to the process limits specified in master.cf.
+# - It changes the meaning of the corresponding per-destination rate delay, from the delay between
+#   deliveries to the same domain into the delay between deliveries to the same recipient. Again,
+#   different recipients are delivered in parallel, subject to the process limits specified in master.cf.
+# - It changes the meaning of other corresponding per-destination settings in a similar manner, from
+#   settings for delivery to the same domain into settings for delivery to the same recipient.
+#
+# REF1: http://www.postfix.org/postconf.5.html#default_destination_recipient_limit
+# REF2: http://www.postfix.org/postconf.5.html#transport_destination_recipient_limit
+bash-postfix-encrypt-filter_destination_recipient_limit=1
+

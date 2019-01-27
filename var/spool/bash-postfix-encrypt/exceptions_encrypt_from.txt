@@ -1,0 +1,3 @@
+mailer-daemon@this-domain.com
+src-exception1@this-domain.com
+src-exception2@this-domain.com
