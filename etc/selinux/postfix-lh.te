@@ -2,14 +2,15 @@ module postfix-lh 1.0;
 
 require {
         type var_t;
+        type var_log_t;
         type system_mail_t;
         type postfix_spool_t;
         type postfix_pipe_t;
         type logrotate_t;
         type gpg_exec_t;
         type gpg_agent_exec_t;
-        class dir { create add_name remove_name write rmdir };
-        class file { create execute execute_no_trans getattr link lock open read rename setattr unlink write };
+        class dir { create read add_name remove_name write rmdir };
+        class file { create execute execute_no_trans getattr link lock open read rename setattr unlink write append };
 }
 
 #============= postfix_pipe_t ==============
@@ -18,12 +19,11 @@ allow postfix_pipe_t gpg_exec_t:file { execute execute_no_trans open read };
 allow postfix_pipe_t postfix_spool_t:dir { create add_name remove_name write rmdir };
 allow postfix_pipe_t postfix_spool_t:file { create open write read getattr unlink };
 allow postfix_pipe_t var_t:dir { add_name remove_name write };
-
-#!!!! WARNING: 'var_t' is a base type.
-allow postfix_pipe_t var_t:file { create getattr link lock open read rename setattr unlink write };
+allow postfix_pipe_t var_log_t:file { create getattr link lock open read rename setattr unlink write append };
 
 #============= system_mail_t ==============
 allow system_mail_t postfix_spool_t:file { getattr read };
 
 #============= logrotate_t ==============
-allow logrotate_t postfix_spool_t:file getattr;
+allow logrotate_t postfix_spool_t:dir read;
+allow logrotate_t postfix_spool_t:file { create getattr link lock open read rename setattr unlink write };
