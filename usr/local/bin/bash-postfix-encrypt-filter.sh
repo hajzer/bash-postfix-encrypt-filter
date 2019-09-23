@@ -58,8 +58,8 @@ LOGGING_DATE_FORMAT="%Y-%m-%d %H:%M:%S (%Z)"
 # Email variables
 #
 INSPECT_EMAIL_ID=$$
-INSPECT_EMAIL_FROM=$2
-INSPECT_EMAIL_TO=$4
+INSPECT_EMAIL_FROM="$(echo $2 | tr '[A-Z]' '[a-z]')"
+INSPECT_EMAIL_TO="$(echo $4 | tr '[A-Z]' '[a-z]')"
 
 #
 # Encryption
