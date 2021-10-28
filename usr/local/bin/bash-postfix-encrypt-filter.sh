@@ -269,6 +269,7 @@ function encrypt_pgp_mime (){
     # Define PGP/MIME end
     PGP_MIME_HEADER_END="\n"
     PGP_MIME_HEADER_END+=`echo "$PGP_MIME_HEADER_BOUNDARY"`
+    PGP_MIME_HEADER_END+="--\n"
 
     # Extract "From:", "To:", "Subject:", "Date:", "MIME-Version:" from email header of the original email to temporary file "pgp_mime_email_header"
     $CAT $EMAIL_ORIGINAL | $FORMAIL -c -X "From:" -X "To:" -X "Subject:" -X "Date:" -X "MIME-Version:" > $PGP_MIME_EMAIL_HEADER
